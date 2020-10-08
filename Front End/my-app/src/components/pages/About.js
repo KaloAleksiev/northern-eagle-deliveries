@@ -4,7 +4,7 @@ function About()  {
         return (
             <React.Fragment>
                 <h1>About</h1>
-                <p>This is the Delivery List v1.0.</p>
+                <p>This is the front end v1.0</p>
             </React.Fragment>
         )
 }
