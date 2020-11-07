@@ -42,7 +42,7 @@ class App extends Component {
   }
   */
  
-  getAllDeliveries() {
+  getAllDeliveries = () => {
     axios.get('http://localhost:8080/tracker')
       .then(res => console.log(res))
   }
