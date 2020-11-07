@@ -5,8 +5,8 @@ import PropTypes from 'prop-types';
 class Deliveries extends Component {
     
     render() {
-        return this.props.deliveries.map((delivery) => (
-        <DeliveryItem key={ delivery.id } delivery={ delivery } markDelivered={ this.props.markDelivered } delDelivery={ this.props.delDelivery } />
+        return this.props.deliveries.map(delivery => (
+        <DeliveryItem key={ delivery.delivery_id } delivery={ delivery } markDelivered={ this.props.markDelivered } delDelivery={ this.props.delDelivery } />
         ));
     }
 }
