@@ -6,7 +6,7 @@ stages:
 build:
   script:
     - cd individualproject
-    - ./gradlew build
+    - ./gradlew assemble
  
 test:
   stage: test
