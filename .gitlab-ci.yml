@@ -1,8 +1,21 @@
+stages:
+  -build
+  -test
+  -sonarQube
+
 build:
   script:
-    - ./gradlew assemble
+    - cd individualproject
+    - ./gradlew build
  
 test:
   stage: test
   script:
+    - cd individualproject
     - ./gradlew test
+
+sonarQube:
+  stage: sonarQube
+  script:
+    - cd individualproject
+    - ./gradlew sonarqube
