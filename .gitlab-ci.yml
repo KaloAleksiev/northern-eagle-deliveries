@@ -1,7 +1,7 @@
 stages:
-  -build
-  -test
-  -sonarQube
+- build
+- test
+- sonarQube
 
 build:
   script:
