@@ -1,1 +1,1 @@
-Kaloyan Aleksiev's Individual Project
+Kaloyan Aleksiev
