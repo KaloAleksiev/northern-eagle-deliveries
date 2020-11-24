@@ -13,9 +13,9 @@ class Deliveries extends Component {
 
 // PropTypes
 Deliveries.propTypes = {
-    deliveries: PropTypes.array.isRequired,
-    markDelivered: PropTypes.func.isRequired,
-    delDelivery: PropTypes.func.isRequired
+    deliveries: PropTypes.array,
+    markDelivered: PropTypes.func,
+    delDelivery: PropTypes.func
 }
 
 export default Deliveries

@@ -1,4 +1,9 @@
-package com.example.individualproject;
+package com.example.individualproject.datasources;
+
+import com.example.individualproject.interfaces.DataSource;
+import com.example.individualproject.models.Delivery;
+import com.example.individualproject.models.User;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -6,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-public class DataControl {
+public class DataControl implements DataSource {
     private User loggedIn = null;
 
     // init database constants
@@ -103,7 +108,7 @@ public class DataControl {
         String status = "";
         Connection conn = this.connect();
         Statement stmt = conn.createStatement();
-        String sql = "SELECT status FROM `delivery` WHERE delivery_id IS " + id + ");";
+        String sql = "SELECT status FROM `delivery` WHERE delivery_id = " + id + ";";
         try {
             ResultSet rs = stmt.executeQuery(sql);
             while(rs.next()) {
@@ -133,7 +138,7 @@ public class DataControl {
                 String dateYear = date.substring(0, 4);
                 String dateMonth = date.substring(5, 7);
                 String dateDay = date.substring(8);
-                boolean paid = rs.getBoolean("paid");
+                String paid = rs.getString("paid");
                 String status = rs.getString("status");
                 Delivery delivery = new Delivery(delivery_id, sender_id, address, weight, Integer.parseInt(dateYear), Integer.parseInt(dateMonth), Integer.parseInt(dateDay), paid, status);
                 deliveries.add(delivery);
@@ -146,7 +151,7 @@ public class DataControl {
         }
     }
 
-    public void AddDeliveryToDB(int sender_id, String address, double weight, LocalDate sendDate, boolean paid) {
+    public void AddDeliveryToDB(int sender_id, String address, double weight, LocalDate sendDate, String paid) {
         String sql = "INSERT INTO `delivery` (`sender_id`, `address`, `weight`, `send_date`, `paid`) VALUES ('" + sender_id + "', '" + address + "', '" + weight + "', '" + sendDate + "', '" + paid + "');";
         try {
             PreparedStatement statement = this.connect().prepareStatement(sql);
@@ -174,7 +179,7 @@ public class DataControl {
                 String dateYear = date.substring(0, 4);
                 String dateMonth = date.substring(5, 7);
                 String dateDay = date.substring(8);
-                boolean paid = rs.getBoolean("paid");
+                String paid = rs.getString("paid");
                 String status = rs.getString("status");
                 Delivery delivery = new Delivery(delivery_id, sender_id, address, weight, Integer.parseInt(dateYear), Integer.parseInt(dateMonth), Integer.parseInt(dateDay), paid, status);
                 deliveries.add(delivery);
@@ -212,7 +217,7 @@ public class DataControl {
         }
     }
 
-    public void UpdateDeliveryStatus(int delivery_id, String status){
+    public void UpdateDeliveryStatus(int delivery_id, String status) {
         String sql = "UPDATE delivery SET status = '" + status + "' WHERE delivery_id = " + delivery_id;
         try {
             PreparedStatement statement = this.connect().prepareStatement(sql);

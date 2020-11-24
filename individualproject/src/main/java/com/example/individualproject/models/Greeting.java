@@ -1,4 +1,4 @@
-package com.example.individualproject;
+package com.example.individualproject.models;
 
 public class Greeting {
 

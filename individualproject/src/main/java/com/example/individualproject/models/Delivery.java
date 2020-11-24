@@ -1,4 +1,4 @@
-package com.example.individualproject;
+package com.example.individualproject.models;
 
 import java.time.LocalDate;
 import java.util.Calendar;
@@ -10,10 +10,10 @@ public class Delivery {
     private String address;
     private double weight;
     private Calendar sendDate;
-    private boolean paid;
+    private String paid;
     private String status;
 
-    public Delivery(int sender_id, String address, double weight, int year, int month, int day, boolean paid) {
+    public Delivery(int sender_id, String address, double weight, int year, int month, int day, String paid) {
         this.sender_id = sender_id;
         this.weight = weight;
         this.address = address;
@@ -25,7 +25,7 @@ public class Delivery {
         this.status = "Registered";
     }
 
-    public Delivery(int delivery_id, int sender_id, String address, double weight, int year, int month, int day, boolean paid, String status) {
+    public Delivery(int delivery_id, int sender_id, String address, double weight, int year, int month, int day, String paid, String status) {
         this.delivery_id = delivery_id;
         this.sender_id = sender_id;
         this.address = address;
@@ -39,7 +39,7 @@ public class Delivery {
     public Delivery(int delivery_id) {
         this.delivery_id = delivery_id;
         this.sender_id = 1;
-        this.paid = false;
+        this.paid = "No";
         this.weight = 12.5;
         sendDate = Calendar.getInstance();
         sendDate.set(2020, 11, 04);
@@ -69,19 +69,30 @@ public class Delivery {
         this.weight = weight;
     }
 
-    public Calendar getSendDate() {
-        return sendDate;
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getSendDate() {
+        String date = sendDate.get(Calendar.DAY_OF_MONTH)
+                + "-" + sendDate.get(Calendar.MONTH)
+                + "-" + sendDate.get(Calendar.YEAR);
+        return date;
     }
 
     public void setSendDate(Calendar sendDate) {
         this.sendDate = sendDate;
     }
 
-    public boolean isPaid() {
+    public String getPaid() {
         return paid;
     }
 
-    public void setPaid(boolean paid) {
+    public void setPaid(String paid) {
         this.paid = paid;
     }
 

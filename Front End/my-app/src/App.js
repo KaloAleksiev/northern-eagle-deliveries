@@ -21,7 +21,7 @@ class App extends Component {
   
   
   componentDidMount() {
-    axios.get('http://localhost:8080/tracker')
+    axios.get('http://localhost:8080/deliveries')
       .then(res => this.setState({ deliveries: res.data }))
   }
   
@@ -59,19 +59,23 @@ class App extends Component {
 
   // Delete Delivery
   delDelivery = (id) => {
-    axios.delete(`https://jsonplaceholder.typicode.com/todos/${id}`)
+    axios.delete(`http://localhost:8080/deliveries/${id}`)
       .then(res => this.setState({ deliveries: [...this.state.deliveries.filter(delivery => delivery.id !== id)] }));
   }
 
-  // Add Delivery
-  addDelivery = (title) => {
-    axios.post('https://jsonplaceholder.typicode.com/todos', {
-      title,
-      address: 'Frans Staelstraat 27',
-      sent: true,
-      delivered: false
-    })
-      .then(res => this.setState({ deliveries: [...this.state.deliveries, res.data] }));
+  // Add User
+  addDelivery = () => {
+    axios({
+      method: 'post',
+      url: 'http://localhost:8080/newuser',
+      data: {
+        name: 'Alex P',
+        email: 'alexp@gmail.com',
+        password: 'pass123',
+        phone: '+31672948271',
+        position: 'Customer'
+      }
+    });
   }
 
   render() {

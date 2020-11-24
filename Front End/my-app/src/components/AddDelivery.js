@@ -34,9 +34,9 @@ export class AddDelivery extends Component {
 
 // PropTypes
 AddDelivery.propTypes = {
-    delivery: PropTypes.object.isRequired,
-    markDelivered: PropTypes.func.isRequired,
-    delDelivery: PropTypes.func.isRequired
+    delivery: PropTypes.object,
+    markDelivered: PropTypes.func,
+    delDelivery: PropTypes.func
 }
 
 export default AddDelivery

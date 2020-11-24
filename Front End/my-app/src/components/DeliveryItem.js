@@ -12,12 +12,12 @@ export class DeliveryItem extends Component {
     }
 
     render() {
-        const { delivery_id, sender_id, address, weight, send_date, paid, status } = this.props.delivery;
+        const { delivery_id, sender_id, address, weight, sendDate, paid, status } = this.props.delivery;
         return (
             <div style={this.getStyle()}>
                 <p> 
                     <input type="checkbox" onChange={this.props.markDelivered.bind(this, delivery_id) } />
-                    ID: {delivery_id}, Sender ID: {sender_id}, Address: {address} Weight: {weight}, Send date: {send_date}, Paid: {paid}, Status: {status}.
+                    ID: {delivery_id}, Sender ID: {sender_id}, Address: {address} Weight: {weight}, Send date: {sendDate}, Paid: {paid}, Status: {status}.
                     <button onClick={this.props.delDelivery.bind(this, delivery_id) } style={ btnStyle }>X</button>
                     </p>
             </div>
