@@ -3,12 +3,12 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Header from './components/layout/Header';
 import Deliveries from './components/Deliveries';
 import AddDelivery from './components/AddDelivery';
-import About from './components/pages/About';
 import Register from './components/pages/Register';
 import Login from './components/pages/Login';
 import Tracker from './components/pages/Tracker';
 //import { v4 as uuid } from "uuid"; 
 import axios from 'axios';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 import './App.css';
 
@@ -90,7 +90,6 @@ class App extends Component {
                 <Deliveries deliveries={this.state.deliveries} markDelivered={this.markDelivered} delDelivery={this.delDelivery} />
               </React.Fragment>
             )} />
-            <Route path='/About' component={About} />
             <Route path='/Register' component={Register} />
             <Route path='/Tracker' component={Tracker} />
             <Route path='/Login' component={Login} />

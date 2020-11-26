@@ -1,5 +1,7 @@
 import axios from 'axios';
 import React, { Component } from 'react'
+import { Button, Form } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 export class Tracker extends Component {
 
@@ -14,12 +16,14 @@ export class Tracker extends Component {
     render() {
         return (
             <React.Fragment>
-                <h1>Delivery Tracker</h1>
-                <form>
-                    <label htmlFor="deliveryId">Delivery ID:</label><br />
-                    <input type="text" id="deliveryId" name="deliveryId"></input><br />
-                    <input type="submit" onClick={this.getDeliveryStatus}></input>
-                </form>
+                <h1>Track your delivery</h1>
+                <Form>
+                    <Form.Group>
+                        <Form.Label>Delivery ID:</Form.Label>
+                        <Form.Control type="text" id="deliveryId" name="deliveryId" placeholder="Your delivery number..." />
+                    </Form.Group>
+                    <Button type="submit" onClick={this.getDeliveryStatus}> Check status</Button>
+                </Form>
             </React.Fragment>
         )
     }
