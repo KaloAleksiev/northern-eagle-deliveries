@@ -4,6 +4,7 @@ stages:
 - sonarQube
 
 build:
+  stage: build
   script:
     - cd individualproject
     - ./gradlew build
