@@ -2,8 +2,7 @@ package com.example.individualproject.datasources;
 
 import com.example.individualproject.interfaces.DataSource;
 import com.example.individualproject.models.Delivery;
-import com.example.individualproject.models.User;
-import org.springframework.web.bind.annotation.CrossOrigin;
+import com.example.individualproject.models.UserOriginal;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -12,7 +11,7 @@ import java.util.List;
 import java.util.Properties;
 
 public class DataControl implements DataSource {
-    private User loggedIn = null;
+    private UserOriginal loggedIn = null;
 
     // init database constants
     private static final String DATABASE_DRIVER = "com.mysql.cj.jdbc.Driver";
@@ -61,7 +60,7 @@ public class DataControl implements DataSource {
     }
 
     public void AddUserToDB(String name, String email, String password, String phone, String position) throws SQLException {
-        User user = new User(name, email, password, phone, position);
+        UserOriginal userOriginal = new UserOriginal(name, email, password, phone, position);
         Connection conn = this.connect();
         Statement stmt = conn.createStatement();
         String sql = "INSERT INTO `user` (`name`, `email`, `password`, `phone_number`, `position`) VALUES ('" + name + "', '" + email + "', '" + password + "', '" + phone + "', '" + position + "');";
@@ -91,8 +90,8 @@ public class DataControl implements DataSource {
                 return false;
             }
             else {
-                User user = new User(user_id, name, email, password, phone_number, position);
-                loggedIn = user;
+                UserOriginal userOriginal = new UserOriginal(user_id, name, email, password, phone_number, position);
+                loggedIn = userOriginal;
                 return true;
             }
         }
@@ -192,8 +191,8 @@ public class DataControl implements DataSource {
             }
         }
 
-    public List<User> GetAllUsersFromDB() throws SQLException {
-        List<User> users = new ArrayList<>();
+    public List<UserOriginal> GetAllUsersFromDB() throws SQLException {
+        List<UserOriginal> usersOriginal = new ArrayList<>();
         Connection conn = this.connect();
         Statement stmt = conn.createStatement();
         String sql = "SELECT * FROM `user`;";
@@ -206,14 +205,14 @@ public class DataControl implements DataSource {
                 String password = rs.getString("password");
                 String phone_number = rs.getString("phone_number");
                 String position = rs.getString("position");
-                User user = new User(user_id, name, email, password, phone_number, position);
-                users.add(user);
+                UserOriginal userOriginal = new UserOriginal(user_id, name, email, password, phone_number, position);
+                usersOriginal.add(userOriginal);
             }
         } catch(SQLException e){
             e.printStackTrace();
         } finally{
             this.disconnect();
-            return users;
+            return usersOriginal;
         }
     }
 

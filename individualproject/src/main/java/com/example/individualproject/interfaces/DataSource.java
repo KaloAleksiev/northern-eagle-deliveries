@@ -1,12 +1,11 @@
 package com.example.individualproject.interfaces;
 
 import com.example.individualproject.models.Delivery;
-import com.example.individualproject.models.User;
+import com.example.individualproject.models.UserOriginal;
 
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Properties;
 
 public interface DataSource {
 
@@ -17,7 +16,7 @@ public interface DataSource {
     List<Delivery> GetDeliveriesBySenderID(int senderId) throws SQLException;
     void AddDeliveryToDB(int sender_id, String address, double weight, LocalDate sendDate, String paid);
     List<Delivery> GetAllDeliveriesFromDB() throws SQLException;
-    List<User> GetAllUsersFromDB() throws SQLException;
+    List<UserOriginal> GetAllUsersFromDB() throws SQLException;
     void UpdateDeliveryStatus(int delivery_id, String status);
 
 }
