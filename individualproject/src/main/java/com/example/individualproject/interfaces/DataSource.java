@@ -10,8 +10,6 @@ import java.util.List;
 public interface DataSource {
 
     void AddUserToDB(String name, String email, String password, String phone, String position) throws SQLException;
-    boolean Login(String givenEmail, String givenPassword) throws SQLException;
-    void Logout();
     String GetDeliveryStatusByID(int id) throws SQLException;
     List<Delivery> GetDeliveriesBySenderID(int senderId) throws SQLException;
     void AddDeliveryToDB(int sender_id, String address, double weight, LocalDate sendDate, String paid);

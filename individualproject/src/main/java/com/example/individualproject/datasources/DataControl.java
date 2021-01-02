@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.Properties;
 
 public class DataControl implements DataSource {
-    private UserOriginal loggedIn = null;
 
     // init database constants
     private static final String DATABASE_DRIVER = "com.mysql.cj.jdbc.Driver";
@@ -72,35 +71,6 @@ public class DataControl implements DataSource {
         } finally {
             this.disconnect();
         }
-    }
-
-    public boolean Login(String givenEmail, String givenPassword) throws SQLException {
-        Connection conn = this.connect();
-        Statement stmt = conn.createStatement();
-        String sql = "SELECT user_id, name, email, password, phone_number, position FROM `user` WHERE email IS " + givenEmail + " AND password IS " + givenPassword + ");";
-        ResultSet rs = stmt.executeQuery(sql);
-        while (rs.next()) {
-            int user_id = rs.getInt("user_id");
-            String name = rs.getString("name");
-            String email = rs.getString("email");
-            String password = rs.getString("password");
-            String phone_number = rs.getString("phone_number");
-            String position = rs.getString("position");
-            if (rs.wasNull()) {
-                return false;
-            }
-            else {
-                UserOriginal userOriginal = new UserOriginal(user_id, name, email, password, phone_number, position);
-                loggedIn = userOriginal;
-                return true;
-            }
-        }
-        this.disconnect();
-        return false;
-    }
-
-    public void Logout() {
-        loggedIn = null;
     }
 
     public String GetDeliveryStatusByID(int id) throws SQLException {

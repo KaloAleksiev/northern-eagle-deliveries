@@ -11,7 +11,6 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(	name = "users",
         uniqueConstraints = {
-                @UniqueConstraint(columnNames = "username"),
                 @UniqueConstraint(columnNames = "email")
         })
 public class User {
@@ -20,8 +19,8 @@ public class User {
     private Long id;
 
     @NotBlank
-    @Size(max = 20)
-    private String username;
+    @Size(max = 50)
+    private String name;
 
     @NotBlank
     @Size(max = 50)
@@ -29,8 +28,12 @@ public class User {
     private String email;
 
     @NotBlank
-    @Size(max = 120)
+    @Size(max = 40)
     private String password;
+
+    @NotBlank
+    @Size(max = 15)
+    private String phoneNumber;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(	name = "user_roles",
@@ -41,10 +44,11 @@ public class User {
     public User() {
     }
 
-    public User(String username, String email, String password) {
-        this.username = username;
+    public User(String name, String email, String password, String phoneNumber) {
+        this.name = name;
         this.email = email;
         this.password = password;
+        this.phoneNumber = phoneNumber;
     }
 
     public Long getId() {
@@ -55,12 +59,12 @@ public class User {
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
+    public String getName() {
+        return name;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getEmail() {
@@ -77,6 +81,14 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public Set<Role> getRoles() {
