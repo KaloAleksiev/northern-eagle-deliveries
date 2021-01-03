@@ -5,6 +5,7 @@ import Deliveries from './components/Deliveries';
 import AddDelivery from './components/AddDelivery';
 import Register from './components/pages/Register';
 import Login from './components/pages/Login';
+import Home from './components/pages/Home';
 import Tracker from './components/pages/Tracker';
 //import { v4 as uuid } from "uuid"; 
 import axios from 'axios';
@@ -17,15 +18,6 @@ class App extends Component {
   state = {
     deliveries: []
   }
-
-  
-  
-  componentDidMount() {
-    axios.get('http://localhost:8080/deliveries')
-      .then(res => this.setState({ deliveries: res.data }))
-  }
-  
-  
 
   /*
   componentDidMount() {
@@ -90,9 +82,10 @@ class App extends Component {
                 <Deliveries deliveries={this.state.deliveries} markDelivered={this.markDelivered} delDelivery={this.delDelivery} />
               </React.Fragment>
             )} />
-            <Route path='/Register' component={Register} />
-            <Route path='/Tracker' component={Tracker} />
-            <Route path='/Login' component={Login} />
+            <Route path='/register' component={Register} />
+            <Route path='/tracker' component={Tracker} />
+            <Route path='/login' component={Login} />
+            <Route path='/home' component={Home} />
           </div>
         </div>
       </Router>

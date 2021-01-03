@@ -26,8 +26,6 @@ public class UserDetailsImpl implements UserDetails {
 
     private String phoneNumber;
 
-    private String position;
-
     private Collection<? extends GrantedAuthority> authorities;
 
     public UserDetailsImpl(Long id, String name, String email, String password, String phoneNumber,
@@ -37,7 +35,6 @@ public class UserDetailsImpl implements UserDetails {
         this.email = email;
         this.password = password;
         this.phoneNumber = phoneNumber;
-        this.position = position;
         this.authorities = authorities;
     }
 
@@ -79,8 +76,6 @@ public class UserDetailsImpl implements UserDetails {
     public String getName() { return name; }
 
     public String getPhoneNumber() { return phoneNumber; }
-
-    public String getPosition() { return position; }
 
     @Override
     public boolean isAccountNonExpired() {

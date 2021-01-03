@@ -58,21 +58,7 @@ public class DataControl implements DataSource {
         }
     }
 
-    public void AddUserToDB(String name, String email, String password, String phone, String position) throws SQLException {
-        UserOriginal userOriginal = new UserOriginal(name, email, password, phone, position);
-        Connection conn = this.connect();
-        Statement stmt = conn.createStatement();
-        String sql = "INSERT INTO `user` (`name`, `email`, `password`, `phone_number`, `position`) VALUES ('" + name + "', '" + email + "', '" + password + "', '" + phone + "', '" + position + "');";
-        try {
-            PreparedStatement statement = this.connect().prepareStatement(sql);
-            statement.execute();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            this.disconnect();
-        }
-    }
-
+    /*
     public String GetDeliveryStatusByID(int id) throws SQLException {
         String status = "";
         Connection conn = this.connect();
@@ -91,16 +77,16 @@ public class DataControl implements DataSource {
         }
     }
 
-    public List<Delivery> GetDeliveriesBySenderID(int senderId) throws SQLException {
+    public List<Delivery> GetDeliveriesBySenderID(Long sender_id) throws SQLException {
         List<Delivery> deliveries = new ArrayList<>();
         Connection conn = this.connect();
         Statement stmt = conn.createStatement();
-        String sql = "SELECT * FROM `delivery` WHERE sender_id IS " + senderId + ";";
+        String sql = "SELECT * FROM `delivery` WHERE sender_id IS " + sender_id + ";";
         try {
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
-                int delivery_id = rs.getInt("delivery_id");
-                int sender_id = rs.getInt("sender_id");
+                Long id = rs.getLong("delivery_id");
+                Long senderId = rs.getLong("sender_id");
                 String address = rs.getString("address");
                 double weight = rs.getDouble("weight");
                 String date = rs.getString("send_date");
@@ -109,7 +95,7 @@ public class DataControl implements DataSource {
                 String dateDay = date.substring(8);
                 String paid = rs.getString("paid");
                 String status = rs.getString("status");
-                Delivery delivery = new Delivery(delivery_id, sender_id, address, weight, Integer.parseInt(dateYear), Integer.parseInt(dateMonth), Integer.parseInt(dateDay), paid, status);
+                Delivery delivery = new Delivery(id, senderId, address, weight, Integer.parseInt(dateYear), Integer.parseInt(dateMonth), Integer.parseInt(dateDay), paid, status);
                 deliveries.add(delivery);
             }
         } catch(SQLException e){
@@ -140,8 +126,8 @@ public class DataControl implements DataSource {
         try {
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
-                int delivery_id = rs.getInt("delivery_id");
-                int sender_id = rs.getInt("sender_id");
+                Long id = rs.getLong("delivery_id");
+                Long senderId = rs.getLong("sender_id");
                 String address = rs.getString("address");
                 double weight = rs.getDouble("weight");
                 String date = rs.getString("send_date");
@@ -150,7 +136,7 @@ public class DataControl implements DataSource {
                 String dateDay = date.substring(8);
                 String paid = rs.getString("paid");
                 String status = rs.getString("status");
-                Delivery delivery = new Delivery(delivery_id, sender_id, address, weight, Integer.parseInt(dateYear), Integer.parseInt(dateMonth), Integer.parseInt(dateDay), paid, status);
+                Delivery delivery = new Delivery(id, senderId, address, weight, Integer.parseInt(dateYear), Integer.parseInt(dateMonth), Integer.parseInt(dateDay), paid, status);
                 deliveries.add(delivery);
                 }
             } catch(SQLException e){
@@ -197,5 +183,7 @@ public class DataControl implements DataSource {
             this.disconnect();
         }
     }
+
+     */
 
 }

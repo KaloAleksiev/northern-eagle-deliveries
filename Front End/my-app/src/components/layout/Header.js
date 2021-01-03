@@ -1,13 +1,15 @@
-import React from 'react'
+import React, {Component} from 'react'
 import { Link } from 'react-router-dom';
 
-function Header() {
-    return (
-        <header style={ headerStyle }>
-            <h1> Northern Eagle Deliveries </h1>
-            <Link style={linkStyle} to="/">Home</Link> | <Link style={linkStyle} to="/Register">Register</Link> | <Link style={linkStyle} to="/Login">Login</Link> | <Link style={linkStyle} to="/Tracker">Tracker</Link>
-        </header>
-    )
+export class Header extends Component {
+        render(){
+            return (
+                <header style={ headerStyle }>
+                    <h1> Northern Eagle Deliveries </h1>
+                    <Link style={linkStyle} to="/Home">Home</Link> | <Link style={linkStyle} to="/Register">Register</Link> | <Link style={linkStyle} to="/Login">Login</Link> | <Link style={linkStyle} to="/Tracker">Tracker</Link>
+                </header>
+            )
+    }
 }
 
 const headerStyle = {

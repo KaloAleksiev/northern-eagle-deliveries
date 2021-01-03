@@ -14,12 +14,7 @@ import java.util.List;
 public class DeliveryController {
     DataSource dc = new DataControl();
 
-    @GetMapping("/delivery")
-    public Delivery delivery(@RequestParam(value = "id", defaultValue = "1") int id)
-    {
-        return new Delivery(id);
-    }
-
+    /*
     @GetMapping("/deliveries")
     public List<Delivery> GetAllDeliveries() throws SQLException {
         return dc.GetAllDeliveriesFromDB();
@@ -30,4 +25,5 @@ public class DeliveryController {
         System.out.println(dc.GetDeliveryStatusByID(id));
         return dc.GetDeliveryStatusByID(id);
     }
+     */
 }

@@ -14,11 +14,11 @@ public class UserController {
     DataSource dc = new DataControl();
 
     @GetMapping("/user")
-    public UserOriginal customer(@RequestParam(value = "id", defaultValue = "1") int id)
-    {
+    public UserOriginal customer(@RequestParam(value = "id", defaultValue = "1") int id) {
         return new UserOriginal(id);
     }
 
+    /*
     @GetMapping("/users")
     public List<UserOriginal> GetAllUsers() throws SQLException {
         return dc.GetAllUsersFromDB();
@@ -28,4 +28,5 @@ public class UserController {
     public void AddNewUser(@RequestBody UserOriginal userOriginal) throws SQLException {
         dc.AddUserToDB(userOriginal.getName(), userOriginal.getEmail(), userOriginal.getPassword(), userOriginal.getPhoneNumber(), userOriginal.getPosition());
     }
+     */
 }

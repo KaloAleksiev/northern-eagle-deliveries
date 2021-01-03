@@ -9,12 +9,13 @@ import java.util.List;
 
 public interface DataSource {
 
-    void AddUserToDB(String name, String email, String password, String phone, String position) throws SQLException;
+    /*
     String GetDeliveryStatusByID(int id) throws SQLException;
-    List<Delivery> GetDeliveriesBySenderID(int senderId) throws SQLException;
+    List<Delivery> GetDeliveriesBySenderID(Long sender_id) throws SQLException;
     void AddDeliveryToDB(int sender_id, String address, double weight, LocalDate sendDate, String paid);
     List<Delivery> GetAllDeliveriesFromDB() throws SQLException;
     List<UserOriginal> GetAllUsersFromDB() throws SQLException;
     void UpdateDeliveryStatus(int delivery_id, String status);
+    */
 
 }

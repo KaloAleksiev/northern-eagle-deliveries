@@ -1,20 +1,47 @@
 package com.example.individualproject.models;
 
-import java.time.LocalDate;
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.Calendar;
+import java.util.HashSet;
+import java.util.Set;
 
+@Entity
+@Table(	name = "deliveries")
 public class Delivery {
 
-    private int delivery_id;
-    private int sender_id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @NotBlank
+    @Size(max = 100)
     private String address;
-    private double weight;
+
+    @NotBlank
+    @Size(max = 100)
+    private Double weight;
+
+    @NotBlank
+    @Size(max = 20)
     private Calendar sendDate;
+
+    @NotBlank
+    @Size(max = 10)
     private String paid;
+
+    @NotBlank
+    @Size(max = 20)
     private String status;
 
-    public Delivery(int sender_id, String address, double weight, int year, int month, int day, String paid) {
-        this.sender_id = sender_id;
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinTable(	name = "delivery_users",
+            joinColumns = @JoinColumn(name = "delivery_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id"))
+    private Set<User> sender = new HashSet<>();
+
+    public Delivery(String address, double weight, int year, int month, int day, String paid) {
         this.weight = weight;
         this.address = address;
 
@@ -25,9 +52,8 @@ public class Delivery {
         this.status = "Registered";
     }
 
-    public Delivery(int delivery_id, int sender_id, String address, double weight, int year, int month, int day, String paid, String status) {
-        this.delivery_id = delivery_id;
-        this.sender_id = sender_id;
+    public Delivery(Long id, String address, double weight, int year, int month, int day, String paid, String status) {
+        this.id = id;
         this.address = address;
         this.weight = weight;
         sendDate = Calendar.getInstance();
@@ -36,71 +62,6 @@ public class Delivery {
         this.status = status;
     }
 
-    public Delivery(int delivery_id) {
-        this.delivery_id = delivery_id;
-        this.sender_id = 1;
-        this.paid = "No";
-        this.weight = 12.5;
-        sendDate = Calendar.getInstance();
-        sendDate.set(2020, 11, 04);
-    }
-
-    public int getDelivery_id() {
-        return delivery_id;
-    }
-
-    public void setDelivery_id(int delivery_id) {
-        this.delivery_id = delivery_id;
-    }
-
-    public int getSender_id() {
-        return sender_id;
-    }
-
-    public void setSender_id(int sender_id) {
-        this.sender_id = sender_id;
-    }
-
-    public double getWeight() {
-        return weight;
-    }
-
-    public void setWeight(double weight) {
-        this.weight = weight;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getSendDate() {
-        String date = sendDate.get(Calendar.DAY_OF_MONTH)
-                + "-" + sendDate.get(Calendar.MONTH)
-                + "-" + sendDate.get(Calendar.YEAR);
-        return date;
-    }
-
-    public void setSendDate(Calendar sendDate) {
-        this.sendDate = sendDate;
-    }
-
-    public String getPaid() {
-        return paid;
-    }
-
-    public void setPaid(String paid) {
-        this.paid = paid;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
+    public Delivery() {
     }
 }

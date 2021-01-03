@@ -5,41 +5,52 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 export class Register extends Component {
 
-    /*
-    registerNewUser = (event) => {
-        event.preventDefault();
-        let name = event.target.parentNode.name.value;
-        let email = event.target.parentNode.email.value;
-        let password = event.target.parentNode.password.value;
-        let phone = event.target.parentNode.phone.value;
-        axios.get(`http://localhost:8080/tracker/${id}`)
-            .then(res => console.log(res.data))
+    handleSubmit = e => {
+        e.preventDefault();
+
+        const data = {
+            name: this.name,
+            email: this.email,
+            password: this.password,
+            phoneNumber: this.phoneNumber
+        }
+
+        axios.post('http://localhost:8080/signup', data)
+            .then(
+                res => {
+                    console.log(res)
+                }
+            )
+            .catch(
+                err => {
+                    console.log(err)
+                }
+            )
     }
-    */
 
     render() {
         return (
             <React.Fragment>
                 <h1>Create your own account</h1>
-                <Form>
+                <Form onSubmit={this.handleSubmit}>
                     <Form.Group>
                         <Form.Label>Name</Form.Label>
-                        <Form.Control type="name" id="name" placeholder="Your name..." />
+                        <Form.Control type="text" id="name" placeholder="Your name..." onChange={e => this.name = e.target.value} />
                     </Form.Group>
 
-                    <Form.Group controlId="formBasicEmail">
+                    <Form.Group>
                         <Form.Label>Email Address</Form.Label>
-                        <Form.Control type="email" id="email" placeholder="example@email.com" />
+                        <Form.Control type="email" id="email" placeholder="example@email.com" onChange={e => this.email = e.target.value} />
                     </Form.Group>
 
-                    <Form.Group controlId="formBasicPassword">
+                    <Form.Group>
                         <Form.Label>Password</Form.Label>
-                        <Form.Control type="password" id="password" placeholder="Your password..." />
+                        <Form.Control type="password" id="password" placeholder="Your password..." onChange={e => this.password = e.target.value} />
                     </Form.Group>
 
                     <Form.Group>
                         <Form.Label>Phone Number</Form.Label>
-                        <Form.Control type="text" id="phone" placeholder="Your phone number..." />
+                        <Form.Control type="text" id="phone" placeholder="Your phone number..." onChange={e => this.phoneNumber = e.target.value} />
                     </Form.Group>
 
                     <Button variant="primary" type="submit" onClick={this.registerNewUser}>

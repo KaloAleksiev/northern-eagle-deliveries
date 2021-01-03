@@ -1,7 +1,7 @@
 package com.example.individualproject.models;
 
 public enum ERole {
-    ROLE_USER,
-    ROLE_MODERATOR,
-    ROLE_ADMIN
+    Customer,
+    Employee,
+    Administrator
 }
