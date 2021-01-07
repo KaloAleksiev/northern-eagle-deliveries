@@ -14,8 +14,8 @@ export class Register extends Component {
             password: this.password,
             phoneNumber: this.phoneNumber
         }
-
-        axios.post('http://localhost:8080/signup', data)
+        
+        axios.post('http://localhost:8080/auth/signup', data)
             .then(
                 res => {
                     console.log(res)

@@ -5,6 +5,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.Calendar;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 @Entity
@@ -29,39 +30,63 @@ public class Delivery {
 
     @NotBlank
     @Size(max = 10)
-    private String paid;
+    private boolean paid;
 
     @NotBlank
     @Size(max = 20)
     private String status;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinTable(	name = "delivery_users",
-            joinColumns = @JoinColumn(name = "delivery_id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id"))
-    private Set<User> sender = new HashSet<>();
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "sender_id", nullable = false)
+    private User sender;
 
-    public Delivery(String address, double weight, int year, int month, int day, String paid) {
-        this.weight = weight;
-        this.address = address;
-
-        sendDate = Calendar.getInstance();
-        sendDate.set(year, month, day);
-
-        this.paid = paid;
-        this.status = "Registered";
-    }
-
-    public Delivery(Long id, String address, double weight, int year, int month, int day, String paid, String status) {
+    public Delivery(Long id, @NotBlank @Size(max = 100) String address, @NotBlank @Size(max = 100) Double weight, @NotBlank @Size(max = 20) Calendar sendDate, @NotBlank @Size(max = 10) boolean paid, @NotBlank @Size(max = 20) String status, User sender) {
         this.id = id;
         this.address = address;
         this.weight = weight;
-        sendDate = Calendar.getInstance();
-        sendDate.set(year, month, day);
+        this.sendDate = sendDate;
         this.paid = paid;
         this.status = status;
+        this.sender = sender;
+    }
+
+    public Delivery(@NotBlank @Size(max = 100) String address, @NotBlank @Size(max = 100) Double weight, @NotBlank @Size(max = 20) Calendar sendDate, @NotBlank @Size(max = 10) boolean paid, User sender) {
+        this.address = address;
+        this.weight = weight;
+        this.sendDate = sendDate;
+        this.paid = paid;
+        this.sender = sender;
+        this.status = "Registered";
     }
 
     public Delivery() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public Double getWeight() {
+        return weight;
+    }
+
+    public Calendar getSendDate() {
+        return sendDate;
+    }
+
+    public boolean isPaid() {
+        return paid;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public User getSender() {
+        return sender;
     }
 }

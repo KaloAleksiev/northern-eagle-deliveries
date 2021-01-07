@@ -12,7 +12,7 @@ export class Login extends Component {
             password: this.password
         };
 
-        axios.post('http://localhost:8080/signin', data)
+        axios.post('http://localhost:8080/auth/signin', data)
             .then(res => {
                 console.log(res)
             })
