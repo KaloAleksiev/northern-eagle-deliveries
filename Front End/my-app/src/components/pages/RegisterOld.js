@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import { Button, Form } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-export class Register extends Component {
+export class RegisterOld extends Component {
 
     handleSubmit = e => {
         e.preventDefault();
@@ -62,4 +62,4 @@ export class Register extends Component {
     }
 }
 
-export default Register
+export default RegisterOld

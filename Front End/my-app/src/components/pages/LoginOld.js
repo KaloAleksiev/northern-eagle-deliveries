@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import { Button, Form } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-export class Login extends Component {
+export class LoginOld extends Component {
 
     handleSubmit = e => {
         e.preventDefault();
@@ -46,4 +46,4 @@ export class Login extends Component {
     }
 }
 
-export default Login
+export default LoginOld

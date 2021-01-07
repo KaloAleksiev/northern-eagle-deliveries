@@ -1,91 +1,137 @@
-import React, { Component } from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
-import Header from './components/layout/Header';
-import Deliveries from './components/Deliveries';
-import AddDelivery from './components/AddDelivery';
-import Register from './components/pages/Register';
-import Login from './components/pages/Login';
-import Home from './components/pages/Home';
-import Tracker from './components/pages/Tracker';
-//import { v4 as uuid } from "uuid"; 
-import axios from 'axios';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { Router, Switch, Route, Link } from "react-router-dom";
 
-import './App.css';
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./App.css";
+
+import Login from "./components/login.component";
+import Register from "./components/register.component";
+import Home from "./components/home.component";
+import Profile from "./components/profile.component";
+import BoardUser from "./components/board-user.component";
+import BoardModerator from "./components/board-moderator.component";
+import BoardAdmin from "./components/board-admin.component";
+
+import { logout } from "./actions/auth";
+import { clearMessage } from "./actions/message";
+
+import { history } from './helpers/history';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.logOut = this.logOut.bind(this);
 
-  state = {
-    deliveries: []
-  }
+    this.state = {
+      showModeratorBoard: false,
+      showAdminBoard: false,
+      currentUser: undefined,
+    };
 
-  /*
-  componentDidMount() {
-    axios.get('https://jsonplaceholder.typicode.com/todos?_limit=10')
-     .then(res => this.setState({ deliveries: res.data }))
-  }
-  */
-  
-
-  /*
-  componentDidMount() {
-    axios.get('http://localhost:8080/tracker')
-      .then(res => console.log(res.data))
-  }
-  */
- 
-  getAllDeliveries = () => {
-    axios.get('http://localhost:8080/tracker')
-      .then(res => console.log(res))
-  }
-
-  // Toggle Delivered
-  markDelivered = (id) => {
-    this.setState({ deliveries: this.state.deliveries.map(delivery => {
-      if (delivery.id === id) {
-        delivery.delivered = !delivery.delivered
-      }
-      return delivery;  
-    }) });
-  }
-
-  // Delete Delivery
-  delDelivery = (id) => {
-    axios.delete(`http://localhost:8080/deliveries/${id}`)
-      .then(res => this.setState({ deliveries: [...this.state.deliveries.filter(delivery => delivery.id !== id)] }));
-  }
-
-  // Add User
-  addDelivery = () => {
-    axios({
-      method: 'post',
-      url: 'http://localhost:8080/newuser',
-      data: {
-        name: 'Alex P',
-        email: 'alexp@gmail.com',
-        password: 'pass123',
-        phone: '+31672948271',
-        position: 'Customer'
-      }
+    history.listen((location) => {
+      props.dispatch(clearMessage());
     });
   }
 
+  componentDidMount() {
+    const user = this.props.user;
+
+    if (user) {
+      this.setState({
+        currentUser: user,
+        showModeratorBoard: user.roles.includes("ROLE_MODERATOR"),
+        showAdminBoard: user.roles.includes("ROLE_ADMIN"),
+      });
+    }
+  }
+
+  logOut() {
+    this.props.dispatch(logout());
+  }
+
   render() {
+    const { currentUser, showModeratorBoard, showAdminBoard } = this.state;
+
     return (
-      <Router>
-        <div className="App">
-          <div className="container">
-            <Header />
-            <Route exact path='/' render={props => (
-              <React.Fragment>
-                <AddDelivery addDelivery={this.addDelivery} />
-                <Deliveries deliveries={this.state.deliveries} markDelivered={this.markDelivered} delDelivery={this.delDelivery} />
-              </React.Fragment>
-            )} />
-            <Route path='/register' component={Register} />
-            <Route path='/tracker' component={Tracker} />
-            <Route path='/login' component={Login} />
-            <Route path='/home' component={Home} />
+      <Router history={history}>
+        <div>
+          <nav className="navbar navbar-expand navbar-dark bg-dark">
+            <Link to={"/"} className="navbar-brand">
+              Northern Eagle Deliveries
+            </Link>
+            <div className="navbar-nav mr-auto">
+              <li className="nav-item">
+                <Link to={"/home"} className="nav-link">
+                  Home
+                </Link>
+              </li>
+
+              {showModeratorBoard && (
+                <li className="nav-item">
+                  <Link to={"/mod"} className="nav-link">
+                    Moderator Board
+                  </Link>
+                </li>
+              )}
+
+              {showAdminBoard && (
+                <li className="nav-item">
+                  <Link to={"/admin"} className="nav-link">
+                    Admin Board
+                  </Link>
+                </li>
+              )}
+
+              {currentUser && (
+                <li className="nav-item">
+                  <Link to={"/user"} className="nav-link">
+                    User
+                  </Link>
+                </li>
+              )}
+            </div>
+
+            {currentUser ? (
+              <div className="navbar-nav ml-auto">
+                <li className="nav-item">
+                  <Link to={"/profile"} className="nav-link">
+                    {currentUser.name}
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <a href="/login" className="nav-link" onClick={this.logOut}>
+                    LogOut
+                  </a>
+                </li>
+              </div>
+            ) : (
+                <div className="navbar-nav ml-auto">
+                  <li className="nav-item">
+                    <Link to={"/login"} className="nav-link">
+                      Login
+                  </Link>
+                  </li>
+
+                  <li className="nav-item">
+                    <Link to={"/register"} className="nav-link">
+                      Sign Up
+                  </Link>
+                  </li>
+                </div>
+              )}
+          </nav>
+
+          <div className="container mt-3">
+            <Switch>
+              <Route exact path={["/", "/home"]} component={Home} />
+              <Route exact path="/login" component={Login} />
+              <Route exact path="/register" component={Register} />
+              <Route exact path="/profile" component={Profile} />
+              <Route path="/user" component={BoardUser} />
+              <Route path="/mod" component={BoardModerator} />
+              <Route path="/admin" component={BoardAdmin} />
+            </Switch>
           </div>
         </div>
       </Router>
@@ -93,4 +139,11 @@ class App extends Component {
   }
 }
 
-export default App;
+function mapStateToProps(state) {
+  const { user } = state.auth;
+  return {
+    user,
+  };
+}
+
+export default connect(mapStateToProps)(App);
