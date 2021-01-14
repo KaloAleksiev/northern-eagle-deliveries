@@ -12,6 +12,7 @@ import Profile from "./components/profile.component";
 import BoardUser from "./components/board-user.component";
 import BoardModerator from "./components/board-moderator.component";
 import BoardAdmin from "./components/board-admin.component";
+import NewDelivery from "./components/newdelivery.component";
 
 import { logout } from "./actions/auth";
 import { clearMessage } from "./actions/message";
@@ -40,8 +41,8 @@ class App extends Component {
     if (user) {
       this.setState({
         currentUser: user,
-        showModeratorBoard: user.roles.includes("ROLE_MODERATOR"),
-        showAdminBoard: user.roles.includes("ROLE_ADMIN"),
+        showModeratorBoard: user.roles.includes("Employee"),
+        showAdminBoard: user.roles.includes("Administrator"),
       });
     }
   }
@@ -58,7 +59,7 @@ class App extends Component {
         <div>
           <nav className="navbar navbar-expand navbar-dark bg-dark">
             <Link to={"/"} className="navbar-brand">
-              Northern Eagle Deliveries
+              Northern Eagle
             </Link>
             <div className="navbar-nav mr-auto">
               <li className="nav-item">
@@ -69,16 +70,16 @@ class App extends Component {
 
               {showModeratorBoard && (
                 <li className="nav-item">
-                  <Link to={"/mod"} className="nav-link">
-                    Moderator Board
+                  <Link to={"/newdelivery"} className="nav-link">
+                    New Delivery
                   </Link>
                 </li>
               )}
 
               {showAdminBoard && (
                 <li className="nav-item">
-                  <Link to={"/admin"} className="nav-link">
-                    Admin Board
+                  <Link to={"/newdelivery"} className="nav-link">
+                    New Delivery
                   </Link>
                 </li>
               )}
@@ -101,7 +102,7 @@ class App extends Component {
                 </li>
                 <li className="nav-item">
                   <a href="/login" className="nav-link" onClick={this.logOut}>
-                    LogOut
+                    Log out
                   </a>
                 </li>
               </div>
@@ -131,6 +132,7 @@ class App extends Component {
               <Route path="/user" component={BoardUser} />
               <Route path="/mod" component={BoardModerator} />
               <Route path="/admin" component={BoardAdmin} />
+              <Route path="/newdelivery" component={NewDelivery} />
             </Switch>
           </div>
         </div>

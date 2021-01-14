@@ -63,3 +63,28 @@ label {
   -webkit-border-radius: 50%;
   border-radius: 50%;
 }
+
+.column {
+  float: left;
+  padding: 20px;
+}
+
+.left {
+  width: 40%;
+}
+
+.right {
+  width: 60%;
+}
+
+/* Clear floats after the columns */
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.table {
+  margin-top: 20px;
+}

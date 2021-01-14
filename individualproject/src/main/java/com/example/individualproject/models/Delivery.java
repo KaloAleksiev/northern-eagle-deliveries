@@ -20,17 +20,13 @@ public class Delivery {
     @Size(max = 100)
     private String address;
 
-    @NotBlank
-    @Size(max = 100)
     private Double weight;
 
-    @NotBlank
-    @Size(max = 20)
     private Calendar sendDate;
 
     @NotBlank
-    @Size(max = 10)
-    private boolean paid;
+    @Size(max = 100)
+    private String paid;
 
     @NotBlank
     @Size(max = 20)
@@ -40,7 +36,7 @@ public class Delivery {
     @JoinColumn(name = "sender_id", nullable = false)
     private User sender;
 
-    public Delivery(Long id, @NotBlank @Size(max = 100) String address, @NotBlank @Size(max = 100) Double weight, @NotBlank @Size(max = 20) Calendar sendDate, @NotBlank @Size(max = 10) boolean paid, @NotBlank @Size(max = 20) String status, User sender) {
+    public Delivery(Long id, @NotBlank @Size(max = 100) String address, Double weight, Calendar sendDate, @NotBlank @Size(max = 100) String paid, @NotBlank @Size(max = 20) String status, User sender) {
         this.id = id;
         this.address = address;
         this.weight = weight;
@@ -50,12 +46,12 @@ public class Delivery {
         this.sender = sender;
     }
 
-    public Delivery(@NotBlank @Size(max = 100) String address, @NotBlank @Size(max = 100) Double weight, @NotBlank @Size(max = 20) Calendar sendDate, @NotBlank @Size(max = 10) boolean paid, User sender) {
+    public Delivery(@NotBlank @Size(max = 100) String address, Double weight, @NotBlank @Size(max = 100) String paid, User sender) {
         this.address = address;
         this.weight = weight;
-        this.sendDate = sendDate;
         this.paid = paid;
         this.sender = sender;
+        this.sendDate = Calendar.getInstance();
         this.status = "Registered";
     }
 
@@ -78,12 +74,16 @@ public class Delivery {
         return sendDate;
     }
 
-    public boolean isPaid() {
+    public String getPaid() {
         return paid;
     }
 
     public String getStatus() {
         return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public User getSender() {

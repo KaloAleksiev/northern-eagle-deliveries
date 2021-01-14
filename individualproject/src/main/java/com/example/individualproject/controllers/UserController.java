@@ -64,7 +64,7 @@ public class UserController {
         userRepository.save(user);
     }
 
-    @GetMapping("/admin/getallusers")
+    @GetMapping("/mod/getallusers")
     public List<User> getAllUsers() {
         List<User> users = userRepository.findAll();
         return users;

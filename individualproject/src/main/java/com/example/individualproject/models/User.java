@@ -48,8 +48,7 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "delivery_id"))
     private Set<Delivery> deliveries = new HashSet<>();
 
-    public User() {
-    }
+    public User() { }
 
     public User(String name, String email, String password, String phoneNumber) {
         this.name = name;

@@ -11,11 +11,11 @@ public class DeliveryResponse {
     private String address;
     private Double weight;
     private Calendar sendDate;
-    private boolean paid;
+    private String paid;
     private String status;
     private User sender;
 
-    public DeliveryResponse(Long id, String address, Double weight, Calendar sendDate, boolean paid, String status, User sender) {
+    public DeliveryResponse(Long id, String address, Double weight, Calendar sendDate, String paid, String status, User sender) {
         this.id = id;
         this.address = address;
         this.weight = weight;

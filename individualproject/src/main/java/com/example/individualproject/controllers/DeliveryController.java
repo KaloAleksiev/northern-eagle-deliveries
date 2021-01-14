@@ -25,7 +25,7 @@ public class DeliveryController {
     UserRepository userRepository;
 
     public DeliveryResponse convertToResponse(Delivery d) {
-        DeliveryResponse response = new DeliveryResponse(d.getId(), d.getAddress(), d.getWeight(), d.getSendDate(), d.isPaid(), d.getStatus(), d.getSender());
+        DeliveryResponse response = new DeliveryResponse(d.getId(), d.getAddress(), d.getWeight(), d.getSendDate(), d.getPaid(), d.getStatus(), d.getSender());
         return response;
     }
 
@@ -36,7 +36,7 @@ public class DeliveryController {
 
     @PostMapping("/mod/newdelivery")
     public void createNewDelivery(@RequestBody DeliveryRequest deliveryRequest) {
-        Delivery delivery = new Delivery(deliveryRequest.getAddress(), deliveryRequest.getWeight(), deliveryRequest.getSendDate(), deliveryRequest.isPaid(), convertToUser(userRepository.findById(deliveryRequest.getSenderId())));
+        Delivery delivery = new Delivery(deliveryRequest.getAddress(), deliveryRequest.getWeight(), deliveryRequest.getPaid(), convertToUser(userRepository.findById(deliveryRequest.getSenderId())));
         deliveryRepository.save(delivery);
     }
 
@@ -70,7 +70,21 @@ public class DeliveryController {
         return convertToResponse(delivery);
     }
 
-    @DeleteMapping("/admin/deletedelivery/{id{")
+    @PatchMapping("/mod/setSent/{id}")
+    public void setStatusSent(@PathVariable Long id) {
+        Delivery delivery = deliveryRepository.findById(id).get();
+        delivery.setStatus("Sent");
+        deliveryRepository.save(delivery);
+    }
+
+    @PatchMapping("/mod/setDelivered/{id}")
+    public void setStatusDelivered(@PathVariable Long id) {
+        Delivery delivery = deliveryRepository.findById(id).get();
+        delivery.setStatus("Delivered");
+        deliveryRepository.save(delivery);
+    }
+
+    @DeleteMapping("/admin/deletedelivery/{id}")
     public void deleteDeliveryById(@PathVariable Long id) {
         deliveryRepository.deleteById(id);
     }

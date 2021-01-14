@@ -19,6 +19,14 @@ class UserService {
     getAdminBoard() {
         return axios.get(API_URL + 'administrator', { headers: authHeader() });
     }
+
+    getAllUsers() {
+        return axios
+            .get("http://localhost:8080/mod/getallusers")
+            .then((response) => {
+                return response.data;
+            })
+    }
 }
 
 export default new UserService();

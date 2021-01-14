@@ -10,15 +10,17 @@ public class DeliveryRequest {
     private String address;
     private Double weight;
     private Calendar sendDate;
-    private boolean paid;
+    private String paid;
     private Long senderId;
+    private String status;
 
-    public DeliveryRequest(String address, Double weight, Calendar sendDate, boolean paid, Long senderId) {
+    public DeliveryRequest(String address, Double weight, String paid, Long senderId) {
         this.address = address;
         this.weight = weight;
-        this.sendDate = sendDate;
+        this.sendDate = Calendar.getInstance();
         this.paid = paid;
         this.senderId = senderId;
+        this.status = "Registered";
     }
 
     public String getAddress() {
@@ -33,7 +35,7 @@ public class DeliveryRequest {
         return sendDate;
     }
 
-    public boolean isPaid() {
+    public String getPaid() {
         return paid;
     }
 
