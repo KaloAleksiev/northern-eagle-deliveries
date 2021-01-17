@@ -47,7 +47,7 @@ const vpassword = (value) => {
     }
 };
 
-const vphoneNumber = (value) => {};
+const vphoneNumber = (value) => { };
 
 class Register extends Component {
     constructor(props) {
@@ -141,6 +141,7 @@ class Register extends Component {
                                 <div className="form-group">
                                     <label htmlFor="username">Name</label>
                                     <Input
+                                        id="tbName"
                                         type="text"
                                         className="form-control"
                                         name="name"
@@ -153,6 +154,7 @@ class Register extends Component {
                                 <div className="form-group">
                                     <label htmlFor="email">Email</label>
                                     <Input
+                                        id="tbEmail"
                                         type="text"
                                         className="form-control"
                                         name="email"
@@ -165,6 +167,7 @@ class Register extends Component {
                                 <div className="form-group">
                                     <label htmlFor="password">Password</label>
                                     <Input
+                                        id="tbPassword"
                                         type="password"
                                         className="form-control"
                                         name="password"
@@ -177,6 +180,7 @@ class Register extends Component {
                                 <div className="form-group">
                                     <label htmlFor="phone">Phone Number</label>
                                     <Input
+                                        id="tbPhoneNumber"
                                         type="text"
                                         className="form-control"
                                         name="phoneNumber"
@@ -187,7 +191,7 @@ class Register extends Component {
                                 </div>
 
                                 <div className="form-group">
-                                    <button className="btn btn-primary btn-block">Sign Up</button>
+                                    <button id="btnSignUp" className="btn btn-primary btn-block">Sign Up</button>
                                 </div>
                             </div>
                         )}

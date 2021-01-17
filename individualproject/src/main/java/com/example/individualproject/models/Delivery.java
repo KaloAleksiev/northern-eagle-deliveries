@@ -28,28 +28,32 @@ public class Delivery {
     @Size(max = 100)
     private String paid;
 
+    private Double price;
+
     @NotBlank
     @Size(max = 20)
     private String status;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER )
     @JoinColumn(name = "sender_id", nullable = false)
     private User sender;
 
-    public Delivery(Long id, @NotBlank @Size(max = 100) String address, Double weight, Calendar sendDate, @NotBlank @Size(max = 100) String paid, @NotBlank @Size(max = 20) String status, User sender) {
+    public Delivery(Long id, @NotBlank @Size(max = 100) String address, Double weight, Calendar sendDate, @NotBlank @Size(max = 100) String paid, Double price, @NotBlank @Size(max = 20) String status, User sender) {
         this.id = id;
         this.address = address;
         this.weight = weight;
         this.sendDate = sendDate;
         this.paid = paid;
+        this.price = price;
         this.status = status;
         this.sender = sender;
     }
 
-    public Delivery(@NotBlank @Size(max = 100) String address, Double weight, @NotBlank @Size(max = 100) String paid, User sender) {
+    public Delivery(@NotBlank @Size(max = 100) String address, Double weight, @NotBlank @Size(max = 100) String paid, Double price, User sender) {
         this.address = address;
         this.weight = weight;
         this.paid = paid;
+        this.price = price;
         this.sender = sender;
         this.sendDate = Calendar.getInstance();
         this.status = "Registered";
@@ -88,5 +92,9 @@ public class Delivery {
 
     public User getSender() {
         return sender;
+    }
+
+    public Double getPrice() {
+        return price;
     }
 }

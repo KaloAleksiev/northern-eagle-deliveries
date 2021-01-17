@@ -1,27 +1,22 @@
 import React, { Component } from "react";
-import { Redirect } from 'react-router-dom';
-import { connect } from "react-redux";
-import DeliveryService from "../services/delivery.service";
-import AuthService from "../services/auth.service";
-import UserService from "../services/user.service";
 import { Table } from "react-bootstrap";
-import { Button } from "react-bootstrap";
 import FilterResults from 'react-filter-search';
-import { history } from '../helpers/history';
+import DeliveryService from "../services/delivery.service";
+import { Button } from "react-bootstrap";
 
-class Profile extends Component {
+export default class Deliveries extends Component {
 
     constructor(props) {
         super(props);
 
         this.state = {
             deliveries: [],
-            value: "",
+            value: ""
         }
     }
 
     componentDidMount() {
-        DeliveryService.getDeliveriesBySenderId(this.props.user.id)
+        DeliveryService.getAllDeliveries()
             .then((res) => {
                 this.setState({
                     deliveries: res
@@ -34,39 +29,25 @@ class Profile extends Component {
         this.setState({ value });
     }
 
+    handleSent = event => {
+        DeliveryService.setSent(event.target.id)
+        window.location.reload()
+    }
+
+    handleDelivered = event => {
+        DeliveryService.setDelivered(event.target.id)
+        window.location.reload()
+    }
+
     handleDelete = event => {
-        UserService.deleteAccount(event.target.id)
-        AuthService.logout()
-        history.push("/home")
+        DeliveryService.deleteDelivery(event.target.id)
         window.location.reload()
     }
 
     render() {
-        const { user: currentUser } = this.props;
-
-        if (!currentUser) {
-            return <Redirect to="/login" />;
-        }
-
         return (
             <>
-                <div className="container">
-                    <header className="jumbotron">
-                        <h3>
-                            <strong>{currentUser.name}</strong>
-                        </h3>
-                        <br></br>
-                        <p>
-                            <strong>Email:</strong> {currentUser.email}
-                        </p>
-                        <p>
-                            <strong>Phone Number:</strong> {currentUser.phoneNumber}
-                        </p>
-                        <Button variant="danger" id={currentUser.id} onClick={this.handleDelete}>Delete Account </Button>
-                    </header>
-                </div>
-
-                <h1> Your deliveries </h1>
+                <h1> All deliveries </h1>
                 <div>
                     <input type="text" value={this.state.value} onChange={this.handleChange} />
                     <FilterResults
@@ -85,6 +66,9 @@ class Profile extends Component {
                                         <th>Status</th>
                                         <th>Weight</th>
                                         <th>Sender</th>
+                                        <th>Mark as Sent</th>
+                                        <th>Mark as Delivered</th>
+                                        <th>Delete delivery</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -98,24 +82,16 @@ class Profile extends Component {
                                             <td>{el.status}</td>
                                             <td>{el.weight} kg</td>
                                             <td>{el.sender.name}</td>
+                                            <td><Button variant="warning" id={el.id} onClick={this.handleSent}>Sent</Button> </td>
+                                            <td><Button variant="success" id={el.id} onClick={this.handleDelivered}>Delivered</Button></td>
+                                            <td><Button variant="danger" id={el.id} onClick={this.handleDelete}>Delete</Button></td>
                                         </tr>))}
                                 </tbody>
                             </Table>
                         )}
                     />
                 </div>
-
-
             </>
-        );
+        )
     }
 }
-
-function mapStateToProps(state) {
-    const { user } = state.auth;
-    return {
-        user,
-    };
-}
-
-export default connect(mapStateToProps)(Profile);

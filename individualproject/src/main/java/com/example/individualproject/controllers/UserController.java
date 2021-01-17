@@ -1,10 +1,9 @@
 package com.example.individualproject.controllers;
 
-import com.example.individualproject.models.Delivery;
+import com.example.individualproject.logic.UserLogic;
 import com.example.individualproject.models.ERole;
 import com.example.individualproject.models.Role;
 import com.example.individualproject.models.User;
-import com.example.individualproject.models.responsemodels.DeliveryResponse;
 import com.example.individualproject.repository.RoleRepository;
 import com.example.individualproject.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,52 +21,32 @@ public class UserController {
     @Autowired
     RoleRepository roleRepository;
 
+    @Autowired
+    UserLogic userLogic;
+
     @PatchMapping("/admin/makeemployee/{id}")
     public void makeEmployee(@PathVariable Long id) {
-        User user = userRepository.findById(id).get();
-
-        Set<Role> roles = new HashSet<>();
-
-        Role modRole = roleRepository.findByName(ERole.Employee)
-                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-        roles.add(modRole);
-
-        user.setRoles(roles);
-        userRepository.save(user);
+        userLogic.makeEmployee(id);
     }
 
     @PatchMapping("/admin/makecustomer/{id}")
     public void makeCustomer(@PathVariable Long id) {
-        User user = userRepository.findById(id).get();
-
-        Set<Role> roles = new HashSet<>();
-
-        Role userRole = roleRepository.findByName(ERole.Customer)
-                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-        roles.add(userRole);
-
-        user.setRoles(roles);
-        userRepository.save(user);
+        userLogic.makeCustomer(id);
     }
 
     @PatchMapping("/admin/makeadmin/{id}")
     public void makeAdmin(@PathVariable Long id) {
-        User user = userRepository.findById(id).get();
-
-        Set<Role> roles = new HashSet<>();
-
-        Role adminRole = roleRepository.findByName(ERole.Administrator)
-                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-        roles.add(adminRole);
-
-        user.setRoles(roles);
-        userRepository.save(user);
+        userLogic.makeAdmin(id);
     }
 
     @GetMapping("/mod/getallusers")
     public List<User> getAllUsers() {
-        List<User> users = userRepository.findAll();
-        return users;
+        return userLogic.getAllUsers();
+    }
+
+    @DeleteMapping("/user/deleteaccount/{id}")
+    public void deleteAccountById(@PathVariable Long id) {
+        userLogic.deleteAccountById(id);
     }
 
 }

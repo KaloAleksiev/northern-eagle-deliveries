@@ -1,5 +1,6 @@
 package com.example.individualproject.models;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -50,6 +51,15 @@ public class User {
 
     public User() { }
 
+    public User(Long id, Set<Role> roles) {
+
+    }
+
+    public User(Long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
     public User(String name, String email, String password, String phoneNumber) {
         this.name = name;
         this.email = email;
@@ -95,7 +105,31 @@ public class User {
         return roles;
     }
 
+    public void setRoles() {
+        List<Role> lmaoroles = new ArrayList<>();
+        for (Role role : roles) {
+            lmaoroles.add(role);
+        }
+        if (lmaoroles.get(0).getName().equals(ERole.ROLE_Administrator)) {
+            roles.add(new Role(ERole.ROLE_Employee));
+            roles.add(new Role(ERole.ROLE_Customer));
+        } else if (lmaoroles.get(0).getName().equals(ERole.ROLE_Employee)) {
+            roles.add(new Role(ERole.ROLE_Customer));
+        }
+    }
 
+    public void resetRoles() {
+        List<Role> lmaoroles = new ArrayList<>();
+        for (Role role : roles) {
+            lmaoroles.add(role);
+        }
+        if (lmaoroles.get(0).getName().equals(ERole.ROLE_Administrator)) {
+            roles.remove(lmaoroles.get(1));
+            roles.remove(lmaoroles.get(2));
+        } else if (lmaoroles.get(0).getName().equals(ERole.ROLE_Employee)) {
+            roles.remove(lmaoroles.get(1));
+        }
+    }
 
     public Set<Delivery> getDeliveries() {
         return deliveries;

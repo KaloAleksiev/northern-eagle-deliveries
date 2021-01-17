@@ -6,6 +6,7 @@ import DeliveryService from "../services/delivery.service";
 import UserService from "../services/user.service";
 import { Table } from "react-bootstrap";
 import FilterResults from 'react-filter-search';
+import { history } from '../helpers/history';
 
 const required = (value) => {
     if (!value) {
@@ -25,6 +26,8 @@ const paid = (value) => { };
 
 const senderId = (value) => { };
 
+const price = (value) => { };
+
 export default class NewDelivery extends Component {
 
     constructor(props) {
@@ -34,6 +37,7 @@ export default class NewDelivery extends Component {
         this.onChangeAddress = this.onChangeAddress.bind(this);
         this.onChangeWeight = this.onChangeWeight.bind(this);
         this.onChangePaid = this.onChangePaid.bind(this);
+        this.onChangePrice = this.onChangePrice.bind(this);
 
         this.state = {
             users: [],
@@ -42,8 +46,15 @@ export default class NewDelivery extends Component {
             address: "",
             weight: "",
             paid: "",
+            price: "",
             successful: false
         };
+    }
+
+    onChangePrice(e) {
+        this.setState({
+            price: e.target.value,
+        });
     }
 
     onChangeSenderId(e) {
@@ -85,15 +96,16 @@ export default class NewDelivery extends Component {
         this.form.validateAll();
 
         if (this.checkBtn.context._errors.length === 0) {
-            console.log(this.state.address, this.state.weight, this.state.paid, this.state.senderId)
-            DeliveryService.newDelivery(this.state.address, this.state.weight, this.state.paid, this.state.senderId)
+            DeliveryService.newDelivery(this.state.address, this.state.weight, this.state.paid, this.state.price, this.state.senderId)
         }
+        history.push("/deliveries")
+        window.location.reload()
+
     }
 
     componentDidMount() {
         UserService.getAllUsers()
             .then((res) => {
-                console.log(res)
                 this.setState({
                     users: res,
                 })
@@ -105,19 +117,16 @@ export default class NewDelivery extends Component {
         this.setState({ value });
     };
 
-
-    //let filteredUsers = users.filter(user => user.name === typedName)
-
     render() {
         const { message } = this.props;
         return (
             <>
-                <div class="registertext">
+                <div className="registertext">
                     <h1> Register a new delivery </h1>
                 </div>
 
-                <div class="row">
-                    <div class="column left">
+                <div className="row">
+                    <div className="column left">
 
                         <Form
                             onSubmit={this.handleSubmit}
@@ -130,6 +139,7 @@ export default class NewDelivery extends Component {
                                     <div className="form-group">
                                         <label>Address</label>
                                         <Input
+                                            id="tbAddress"
                                             type="text"
                                             className="form-control"
                                             name="address"
@@ -142,6 +152,7 @@ export default class NewDelivery extends Component {
                                     <div className="form-group">
                                         <label>Weight (kg)</label>
                                         <Input
+                                            id="tbWeight"
                                             type="number"
                                             className="form-control"
                                             name="weight"
@@ -154,6 +165,7 @@ export default class NewDelivery extends Component {
                                     <div className="form-group">
                                         <label>Paid</label>
                                         <Input
+                                            id="tbPaid"
                                             type="text"
                                             className="form-control"
                                             name="paid"
@@ -164,8 +176,22 @@ export default class NewDelivery extends Component {
                                     </div>
 
                                     <div className="form-group">
+                                        <label>Price (€)</label>
+                                        <Input
+                                            id="tbPrice"
+                                            type="number"
+                                            className="form-control"
+                                            name="price"
+                                            value={this.state.price}
+                                            onChange={this.onChangePrice}
+                                            validations={[required, price]}
+                                        />
+                                    </div>
+
+                                    <div className="form-group">
                                         <label htmlFor="phone">Sender ID</label>
                                         <Input
+                                            id="tbSenderId"
                                             type="number"
                                             className="form-control"
                                             name="senderId"
@@ -176,7 +202,7 @@ export default class NewDelivery extends Component {
                                     </div>
 
                                     <div className="form-group">
-                                        <button className="btn btn-primary btn-block">Submit</button>
+                                        <button id="btnSubmit" className="btn btn-primary btn-block">Submit</button>
                                     </div>
                                 </div>
                             )}
@@ -202,7 +228,7 @@ export default class NewDelivery extends Component {
 
 
 
-                    <div class="column right">
+                    <div className="column right">
 
                         <div>
                             <input type="text" value={this.state.value} onChange={this.handleChange} />
@@ -211,7 +237,7 @@ export default class NewDelivery extends Component {
                                 data={this.state.users}
                                 renderResults={results => (
 
-                                    <Table striped bordered hover class="table">
+                                    <Table striped bordered hover className="table">
                                         <thead>
                                             <tr>
                                                 <th>ID</th>
@@ -222,7 +248,7 @@ export default class NewDelivery extends Component {
                                         </thead>
                                         <tbody>
                                             {results.map(el => (
-                                                <tr>
+                                                <tr key={el.id}>
                                                     <td>{el.id}</td>
                                                     <td>{el.name}</td>
                                                     <td>{el.email}</td>

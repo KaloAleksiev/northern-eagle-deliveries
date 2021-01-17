@@ -10,9 +10,10 @@ import Register from "./components/register.component";
 import Home from "./components/home.component";
 import Profile from "./components/profile.component";
 import BoardUser from "./components/board-user.component";
-import BoardModerator from "./components/board-moderator.component";
-import BoardAdmin from "./components/board-admin.component";
 import NewDelivery from "./components/newdelivery.component";
+import Deliveries from "./components/deliveries.component";
+import Users from "./components/users.component";
+
 
 import { logout } from "./actions/auth";
 import { clearMessage } from "./actions/message";
@@ -41,8 +42,8 @@ class App extends Component {
     if (user) {
       this.setState({
         currentUser: user,
-        showModeratorBoard: user.roles.includes("Employee"),
-        showAdminBoard: user.roles.includes("Administrator"),
+        showModeratorBoard: user.roles.includes("ROLE_Employee"),
+        showAdminBoard: user.roles.includes("ROLE_Administrator"),
       });
     }
   }
@@ -70,6 +71,14 @@ class App extends Component {
 
               {showModeratorBoard && (
                 <li className="nav-item">
+                  <Link to={"/deliveries"} className="nav-link">
+                    Deliveries
+                  </Link>
+                </li>
+              )}
+
+              {showModeratorBoard && (
+                <li className="nav-item">
                   <Link to={"/newdelivery"} className="nav-link">
                     New Delivery
                   </Link>
@@ -78,16 +87,24 @@ class App extends Component {
 
               {showAdminBoard && (
                 <li className="nav-item">
-                  <Link to={"/newdelivery"} className="nav-link">
-                    New Delivery
+                  <Link to={"/users"} className="nav-link">
+                    Users
                   </Link>
                 </li>
               )}
 
-              {currentUser && (
+              {showAdminBoard && (
                 <li className="nav-item">
-                  <Link to={"/user"} className="nav-link">
-                    User
+                  <Link to={"/deliveries"} className="nav-link">
+                    Deliveries
+                  </Link>
+                </li>
+              )}
+
+              {showAdminBoard && (
+                <li className="nav-item">
+                  <Link to={"/newdelivery"} className="nav-link">
+                    New Delivery
                   </Link>
                 </li>
               )}
@@ -130,9 +147,9 @@ class App extends Component {
               <Route exact path="/register" component={Register} />
               <Route exact path="/profile" component={Profile} />
               <Route path="/user" component={BoardUser} />
-              <Route path="/mod" component={BoardModerator} />
-              <Route path="/admin" component={BoardAdmin} />
               <Route path="/newdelivery" component={NewDelivery} />
+              <Route path="/deliveries" component={Deliveries} />
+              <Route path="/users" component={Users} />
             </Switch>
           </div>
         </div>

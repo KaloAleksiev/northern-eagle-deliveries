@@ -14,22 +14,4 @@ public class TestController {
     public String allAccess() {
         return "Northern Eagle Deliveries";
     }
-
-    @GetMapping("/customer")
-    @PreAuthorize("hasRole('Customer') or hasRole('Employee') or hasRole('Administrator')")
-    public String userAccess() {
-        return "User Content.";
-    }
-
-    @GetMapping("/employee")
-    @PreAuthorize("hasRole('Employee')")
-    public String moderatorAccess() {
-        return "Moderator Board.";
-    }
-
-    @GetMapping("/administrator")
-    @PreAuthorize("hasRole('Administrator')")
-    public String adminAccess() {
-        return "Admin Board.";
-    }
 }

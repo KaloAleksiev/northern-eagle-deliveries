@@ -11,14 +11,16 @@ public class DeliveryRequest {
     private Double weight;
     private Calendar sendDate;
     private String paid;
+    private Double price;
     private Long senderId;
     private String status;
 
-    public DeliveryRequest(String address, Double weight, String paid, Long senderId) {
+    public DeliveryRequest(String address, Double weight, String paid, Double price, Long senderId) {
         this.address = address;
         this.weight = weight;
         this.sendDate = Calendar.getInstance();
         this.paid = paid;
+        this.price = price;
         this.senderId = senderId;
         this.status = "Registered";
     }
@@ -41,5 +43,9 @@ public class DeliveryRequest {
 
     public Long getSenderId() {
         return senderId;
+    }
+
+    public Double getPrice() {
+        return price;
     }
 }

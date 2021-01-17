@@ -98,6 +98,7 @@ class Login extends Component {
                         <div className="form-group">
                             <label htmlFor="email">Email</label>
                             <Input
+                                id="tbEmail"
                                 type="text"
                                 className="form-control"
                                 name="email"
@@ -110,6 +111,7 @@ class Login extends Component {
                         <div className="form-group">
                             <label htmlFor="password">Password</label>
                             <Input
+                                id="tbPassword"
                                 type="password"
                                 className="form-control"
                                 name="password"
@@ -121,6 +123,7 @@ class Login extends Component {
 
                         <div className="form-group">
                             <button
+                                id="btnSignIn"
                                 className="btn btn-primary btn-block"
                                 disabled={this.state.loading}
                             >
