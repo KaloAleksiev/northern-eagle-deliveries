@@ -45,11 +45,6 @@ public class DeliveryLogicTest {
         deliveries.add(delivery3);
     }
 
-    public DeliveryResponse convertToResponse(Delivery d) {
-        DeliveryResponse response = new DeliveryResponse(d.getId(), d.getAddress(), d.getWeight(), d.getSendDate(), d.getPaid(), d.getPrice(), d.getStatus(), d.getSender());
-        return response;
-    }
-
     public User convertToUser(Optional<User> u) {
         User user = u.get();
         return user;
