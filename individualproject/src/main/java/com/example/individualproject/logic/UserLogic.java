@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @Component
@@ -21,7 +22,11 @@ public class UserLogic {
     RoleRepository roleRepository;
 
     public boolean makeEmployee(Long id) {
-        User user = userRepository.findById(id).get();
+        User user = new User();
+        Optional<User> userData = userRepository.findById(id);
+        if (userData.isPresent()) {
+            user = userData.get();
+        }
         Set<Role> roles = new HashSet<>();
         Role modRole = roleRepository.findByName(ERole.ROLE_Employee)
                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
@@ -37,7 +42,11 @@ public class UserLogic {
     }
 
     public boolean makeCustomer(Long id) {
-        User user = userRepository.findById(id).get();
+        User user = new User();
+        Optional<User> userData = userRepository.findById(id);
+        if (userData.isPresent()) {
+            user = userData.get();
+        }
         Set<Role> roles = new HashSet<>();
         Role userRole = roleRepository.findByName(ERole.ROLE_Customer)
                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
@@ -53,7 +62,11 @@ public class UserLogic {
     }
 
     public boolean makeAdmin(Long id) {
-        User user = userRepository.findById(id).get();
+        User user = new User();
+        Optional<User> userData = userRepository.findById(id);
+        if (userData.isPresent()) {
+            user = userData.get();
+        }
         Set<Role> roles = new HashSet<>();
         Role adminRole = roleRepository.findByName(ERole.ROLE_Administrator)
                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));

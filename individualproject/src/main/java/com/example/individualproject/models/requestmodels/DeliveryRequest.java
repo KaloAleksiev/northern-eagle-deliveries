@@ -1,10 +1,6 @@
 package com.example.individualproject.models.requestmodels;
 
-import com.example.individualproject.models.User;
-
 import java.util.Calendar;
-import java.util.HashSet;
-import java.util.Set;
 
 public class DeliveryRequest {
     private String address;

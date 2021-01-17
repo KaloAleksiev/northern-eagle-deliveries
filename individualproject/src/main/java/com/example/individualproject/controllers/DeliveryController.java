@@ -10,7 +10,6 @@ import com.example.individualproject.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,8 +33,11 @@ public class DeliveryController {
     }
 
     public User convertToUser(Optional<User> u) {
-        User user = u.get();
-        return user;
+        if (u.isPresent()) {
+            User user = u.get();
+            return user;
+        }
+        return null;
     }
 
     @PostMapping("/mod/newdelivery")

@@ -27,8 +27,11 @@ public class DeliveryLogic {
     }
 
     public User convertToUser(Optional<User> u) {
-        User user = u.get();
-        return user;
+        if (u.isPresent()) {
+            User user = u.get();
+            return user;
+        }
+        return null;
     }
 
     public boolean createNewDelivery(DeliveryRequest deliveryRequest) {
@@ -61,7 +64,11 @@ public class DeliveryLogic {
     }
 
     public boolean setStatusSent(Long id) {
-        Delivery delivery = deliveryRepository.findById(id).get();
+        Delivery delivery = new Delivery();
+        Optional<Delivery> deliveryData = deliveryRepository.findById(id);
+        if (deliveryData.isPresent()) {
+            delivery = deliveryData.get();
+        }
         delivery.setStatus("Sent");
         try {
             deliveryRepository.save(delivery);
@@ -73,7 +80,11 @@ public class DeliveryLogic {
     }
 
     public boolean setStatusDelivered(Long id) {
-        Delivery delivery = deliveryRepository.findById(id).get();
+        Delivery delivery = new Delivery();
+        Optional<Delivery> deliveryData = deliveryRepository.findById(id);
+        if (deliveryData.isPresent()) {
+            delivery = deliveryData.get();
+        }
         delivery.setStatus("Delivered");
         try {
             deliveryRepository.save(delivery);

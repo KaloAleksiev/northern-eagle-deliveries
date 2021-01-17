@@ -1,8 +1,6 @@
 package com.example.individualproject.controllers;
 
 import com.example.individualproject.logic.UserLogic;
-import com.example.individualproject.models.ERole;
-import com.example.individualproject.models.Role;
 import com.example.individualproject.models.User;
 import com.example.individualproject.repository.RoleRepository;
 import com.example.individualproject.repository.UserRepository;

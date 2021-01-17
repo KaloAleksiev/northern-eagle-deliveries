@@ -1,5 +1,9 @@
 {
+    "plugins": [
+        "@cypress/dev"
+    ],
     "extends": [
-        "plugin:cypress/recommended"
+        "plugin:cypress/recommended",
+        "plugin:@cypress/dev/general"
     ]
 }

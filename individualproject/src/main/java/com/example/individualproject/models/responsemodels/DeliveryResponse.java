@@ -3,8 +3,6 @@ package com.example.individualproject.models.responsemodels;
 import com.example.individualproject.models.User;
 
 import java.util.Calendar;
-import java.util.HashSet;
-import java.util.Set;
 
 public class DeliveryResponse {
     private Long id;

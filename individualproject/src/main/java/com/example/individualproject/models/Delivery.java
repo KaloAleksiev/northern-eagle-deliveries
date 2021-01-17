@@ -4,9 +4,6 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.Calendar;
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
 
 @Entity
 @Table(	name = "deliveries")
