@@ -6,17 +6,17 @@ stages:
 build:
   stage: build
   script:
-    - cd Back End/individualproject
+    - cd individualproject
     - ./gradlew build
  
 test:
   stage: test
   script:
-    - cd Back End/individualproject
+    - cd individualproject
     - ./gradlew test
 
 sonarQube:
   stage: sonarQube
   script:
-    - cd Back End/individualproject
+    - cd individualproject
     - ./gradlew sonarqube -D "sonar.projectKey=individualproject" -D "sonar.host.url=http://localhost:9000" -D "sonar.login=ea558ec4403f773ed98ce19644d225ed8a69637b"
