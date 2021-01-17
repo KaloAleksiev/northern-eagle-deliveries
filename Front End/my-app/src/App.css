@@ -62,6 +62,11 @@ label {
   border-radius: 50%;
 }
 
+.truck-img-card {
+  width: 400px;
+  height: 400px;
+}
+
 .column {
   float: left;
   padding: 20px;
@@ -85,4 +90,8 @@ label {
 
 .table {
   margin-top: 20px;
+}
+
+.center {
+  text-align: center;
 }
