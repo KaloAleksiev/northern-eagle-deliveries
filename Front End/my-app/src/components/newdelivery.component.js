@@ -97,9 +97,10 @@ export default class NewDelivery extends Component {
 
         if (this.checkBtn.context._errors.length === 0) {
             DeliveryService.newDelivery(this.state.address, this.state.weight, this.state.paid, this.state.price, this.state.senderId)
+            //history.push("/deliveries")
+            //window.location.reload()
         }
-        history.push("/deliveries")
-        window.location.reload()
+
 
     }
 
